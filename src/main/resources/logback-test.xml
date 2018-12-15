@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+	<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+		<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+		<pattern>%red(%d{MM-dd HH:mm:ss.SSS}) %green(${LOG_LEVEL_PATTERN:-%5p}) --- %highlight([%t] %-40.40logger{39}) : %black(%m%n)</pattern>
+	</encoder>
+</appender>
+<logger name="com.bofa" level="DEBUG" />
+<root level="INFO">
+	<appender-ref ref="console" />
+	<!-- <appender-ref ref="rollingFile" /> -->
+</root>
+</configuration>
