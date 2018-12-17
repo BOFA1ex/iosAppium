@@ -32,13 +32,6 @@ public class AutoWiredAspect {
 
     private static final Logger log = LoggerFactory.getLogger(AutoWiredAspect.class);
 
-    public static Object injection(String packageName) {
-        Set<String> classNames = ScanUtils.scan(packageName);
-        for (String s : classNames) {
-
-        }
-        return null;
-    }
 
     public static boolean injection(Object obj) {
         Class<?> c = obj.getClass();

@@ -2,15 +2,21 @@ package com.bofa.appium.excute.step;
 
 import com.bofa.appium.annotation.Component;
 import com.bofa.appium.container.ApplicationContext;
+import com.bofa.appium.container.ApplicationListener;
 import com.bofa.appium.excute.ExecuteReq;
+import com.bofa.appium.util.PropertiesUtils;
 import com.bofa.appium.util.Shell;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.AutomationName;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Properties;
 
 /**
  * @author Bofa
@@ -19,7 +25,7 @@ import java.net.URL;
  * @date 2018/12/13
  */
 @Component
-public class BaseEc implements Execute{
+public class BaseEc implements Execute {
 
     private String url;
 
@@ -33,10 +39,10 @@ public class BaseEc implements Execute{
         this.req = req;
     }
 
-    public BaseEc(){
-        url = System.getProperty("URL");
+    public BaseEc() {
+        url = PropertiesUtils.getProperty("URL");
     }
-
+    
 
     private static boolean needhelp = false;
     private static String UDID, BUNDLEID;
@@ -80,44 +86,44 @@ public class BaseEc implements Execute{
     private void init() {
 
         //启动app守护进程
-        try {
-            Shell.launchAPP(UDID, BUNDLEID);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Shell.launchAPP(UDID, BUNDLEID);
+//        } catch (IOException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("platform", System.getProperty("platform"));
-        caps.setCapability("platformVersion", System.getProperty("platformVersion"));
-        caps.setCapability("deviceName", System.getProperty("deviceName"));
-        caps.setCapability("xcodeOrgId", System.getProperty("xcodeOrgId"));
+        caps.setCapability("platform", PropertiesUtils.getProperty("platform"));
+        caps.setCapability("platformVersion", PropertiesUtils.getProperty("platformVersion"));
+        caps.setCapability("deviceName", PropertiesUtils.getProperty("deviceName"));
+        caps.setCapability("xcodeOrgId", PropertiesUtils.getProperty("xcodeOrgId"));
         caps.setCapability("automationName", AutomationName.IOS_XCUI_TEST);
-        caps.setCapability("autoAcceptAlerts", System.getProperty("autoAcceptAlerts"));
-        caps.setCapability("noReset", System.getProperty("noReset"));
+        caps.setCapability("autoAcceptAlerts", true);
+        caps.setCapability("noReset", false);
         caps.setCapability("udid", UDID);
         caps.setCapability("bundleId", BUNDLEID);
 
         try {
-            log.info("application start " );
+            log.info("application start ");
             IOSDriver<MobileElement> driver = new IOSDriver<>(new URL(url), caps);
             ApplicationContext.newInstance().putBean(driver);
+            ApplicationListener.refreshContext();
         } catch (Exception e) {
-            log.error("init error message : " + e.getLocalizedMessage() );
+            log.error("init error message : " + e.getLocalizedMessage());
         }
     }
 
     @Override
     public void execute() {
-        if(req == null){
+        if (req == null) {
             throw new RuntimeException("req 不能为空！");
         }
         executeParameter(req.getArgs());
-        init();
     }
 
     @Override
     public String getName() {
-        if(req == null){
+        if (req == null) {
             return null;
         }
         return req.getDesc();

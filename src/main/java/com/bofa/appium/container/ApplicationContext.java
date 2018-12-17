@@ -110,12 +110,17 @@ public class ApplicationContext {
     }
 
     public Object getBean(String name) {
+        if(name.matches(".*[<].*[>]")){
+            name = name.substring(0,name.indexOf("<"));
+        }
         Object o = beanFactory.get(name);
         if (o == null) {
+            log.error("beanFactory can not fina bean where name : " + name);
             o = createBean(map.get(name));
         }
         return o;
     }
+
 
     public List<Object> getBeans() {
         ArrayList<Object> tmp = Lists.newArrayList();

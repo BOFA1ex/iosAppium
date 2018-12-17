@@ -11,7 +11,10 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -33,13 +36,25 @@ public class ApplicationContextProcessor {
                         for (Annotation a : field.getAnnotations()) {
                             if (a instanceof Autowired) {
                                 log.info("scan autowired field object name : " + field.getName());
-                                try {
-                                    if(!field.isAccessible()){
-                                        field.setAccessible(true);
+                                if(((Autowired) a).value()){
+                                    try {
+                                        if(!field.isAccessible()){
+                                            field.setAccessible(true);
+                                        }
+                                        field.set(o, context.getBean(field.getGenericType().getTypeName()));
+                                    } catch (IllegalAccessException e) {
+                                        log.error(e.getLocalizedMessage());
                                     }
-                                    field.set(o, context.getBean(field.getGenericType().getTypeName()));
-                                } catch (IllegalAccessException e) {
-                                    log.error(e.getLocalizedMessage());
+                                }else{
+                                    InvocationHandler invocationHandler = Proxy.getInvocationHandler(a);
+                                    try {
+                                        Field f = invocationHandler.getClass().getDeclaredField("memberValues");
+                                        f.setAccessible(true);
+                                        ((Map)f.get(invocationHandler)).put("value",true);
+                                        System.err.println(((Autowired) a).value());
+                                    } catch (NoSuchFieldException | IllegalAccessException e) {
+                                        log.error(e.getLocalizedMessage());
+                                    }
                                 }
                             }
                         }

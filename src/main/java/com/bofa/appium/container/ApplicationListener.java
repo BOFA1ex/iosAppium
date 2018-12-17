@@ -9,7 +9,7 @@ import com.bofa.appium.annotation.Application;
  * @decription com.bofa.appium.container
  * @date 2018/12/15
  */
-public class ApplicaitonListener {
+public class ApplicationListener {
 
     public static void initContainer(){
         ApplicationContextProcessor.inject(EntryApplication.class.getAnnotation(Application.class).value());

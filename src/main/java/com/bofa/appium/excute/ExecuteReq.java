@@ -1,7 +1,13 @@
 package com.bofa.appium.excute;
 
+import com.bofa.appium.excute.dto.Event;
+import com.google.common.collect.Lists;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Bofa
@@ -12,38 +18,55 @@ import org.apache.commons.lang3.StringUtils;
 @Data
 public class ExecuteReq {
 
-    public static ExecuteReq newInstance(String[] args, String desc, Long... params) {
-        if (StringUtils.isBlank(desc)) {
-            return newInstance(args, params);
-        }
-        return new ExecuteReq(args, desc, params);
+
+    public static ExecuteReq newInstance(String[] args, String desc) {
+        return new ExecuteReq(args, desc);
     }
 
-    private static ExecuteReq newInstance(String[] args, Long... params) {
-        if (params.length == 0) {
-            return new ExecuteReq(args);
-        }
-        return new ExecuteReq(args, params);
+    public static ExecuteReq newInstance(String[] args, String desc, Event... events) {
+        ArrayList<Event> tmp = Lists.newArrayList();
+        Collections.addAll(tmp, events);
+        return new ExecuteReq(args, desc, tmp);
     }
 
-    public ExecuteReq(String[] args, String desc, Long... params) {
+
+    public static ExecuteReq newInstance(String[] args, String desc, int xoffset, int yoffset, Long processTime) {
+        return new ExecuteReq(args, null, xoffset, yoffset, processTime);
+    }
+
+
+    public static ExecuteReq newInstance(String[] args, String desc, String elementValue, Long processTime) {
+        return new ExecuteReq(args, desc, elementValue, processTime);
+    }
+
+
+    public ExecuteReq(String[] args, String desc, String elementValue, Long processTime) {
         this.args = args;
-        this.params = params;
         this.desc = desc;
+        events = Lists.newArrayList();
+        events.add(new Event(elementValue, processTime));
     }
 
-    public ExecuteReq(String[] args, Long... params) {
+    public ExecuteReq(String[] args, String desc, int xoffset, int yoffset, Long processTime) {
         this.args = args;
-        this.params = params;
+        events = Lists.newArrayList();
+        events.add(new Event(xoffset, yoffset, processTime));
     }
 
-    public ExecuteReq(String[] args) {
+    public ExecuteReq(String[] args, String desc, List<Event> events) {
         this.args = args;
+        this.events = Lists.newArrayList();
+        this.events.addAll(events);
+    }
+
+    public ExecuteReq(String[] args, String desc) {
+        this.args = args;
+        this.desc = desc;
     }
 
     private String[] args;
 
-    private Long[] params;
+    private List<Event> events;
 
     private String desc;
 

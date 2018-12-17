@@ -30,7 +30,6 @@ public class ExecuteHandler {
                 e -> {
                     log.info("handle execute : " + e.getName());
                     e.execute();
-                    log.info("handle execute : " + e.getName());
                 }
         );
     }
