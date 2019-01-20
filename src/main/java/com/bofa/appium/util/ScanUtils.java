@@ -74,9 +74,4 @@ public class ScanUtils {
             }
         }
     }
-
-    public static void main(String[] args) {
-        scan("com.bofa.appium.excute.step");
-        System.err.println(classNames);
-    }
 }

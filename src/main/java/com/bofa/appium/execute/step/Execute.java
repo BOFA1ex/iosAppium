@@ -1,6 +1,5 @@
-package com.bofa.appium.excute.step;
+package com.bofa.appium.execute.step;
 
-import com.bofa.appium.excute.ExecuteReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

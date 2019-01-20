@@ -1,6 +1,6 @@
 package com.bofa.appium.container;
 
-import com.bofa.appium.excute.step.Execute;
+import com.bofa.appium.execute.step.Execute;
 import com.google.common.collect.Lists;
 import lombok.Data;
 import org.apache.commons.beanutils.BeanUtils;
@@ -20,6 +20,7 @@ import java.util.List;
  * @date 2018/12/13
  */
 public class ApplicationContext {
+
 
     private static ApplicationContext context = new ApplicationContext();
 

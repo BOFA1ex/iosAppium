@@ -1,5 +1,8 @@
 package com.bofa.appium.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
@@ -13,19 +16,20 @@ import java.util.Properties;
  */
 public class PropertiesUtils {
 
+    private static final Logger log = LoggerFactory.getLogger(PropertiesUtils.class);
     private static Properties properties;
 
     static {
         properties = new Properties();
     }
 
-    public static String getProperty(String key){
+    public static String getProperty(String key) {
         try {
             FileReader reader = new FileReader("/Users/Bofa/iosAppium/src/main/resources/application.properties");
             properties.load(reader);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getLocalizedMessage());
         }
-        return properties.getProperty("URL");
+        return properties.getProperty(key);
     }
 }

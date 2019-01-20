@@ -2,9 +2,6 @@ package com.bofa.appium.container;
 
 import com.bofa.appium.annotation.Autowired;
 import com.bofa.appium.annotation.Component;
-import com.bofa.appium.excute.step.WaitAndTapEc;
-import com.bofa.appium.util.ClockUtil;
-import com.bofa.appium.util.Pattern;
 import com.bofa.appium.util.ScanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +10,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Bofa
@@ -27,7 +22,8 @@ public class ApplicationContextProcessor {
 
     private static final Logger log = LoggerFactory.getLogger(ApplicationContextProcessor.class);
 
-    public static void refreshContext() {
+    protected static void refreshContext() {
+
         ApplicationContext context = ApplicationContext.newInstance();
         context.getBeans().forEach(
                 (Object o) -> {
@@ -63,7 +59,8 @@ public class ApplicationContextProcessor {
         );
     }
 
-    public static void inject(String packageName) {
+    protected static void inject(String packageName) {
+        // TODO: 2018/12/16 不考虑引入Spring 容器，简单的自定义实现自动扫描装配上下文中的依赖关系
         ScanUtils.scan(packageName).forEach(
                 (String s) -> {
                     try {

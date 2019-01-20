@@ -1,6 +1,6 @@
-package com.bofa.appium.excute;
+package com.bofa.appium.execute;
 
-import com.bofa.appium.excute.step.Execute;
+import com.bofa.appium.execute.step.Execute;
 import com.bofa.appium.util.ClockUtil;
 import com.bofa.appium.util.Pattern;
 import org.slf4j.Logger;

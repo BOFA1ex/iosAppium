@@ -1,12 +1,9 @@
 package com.bofa.appium;
 
 import com.bofa.appium.annotation.Application;
-import com.bofa.appium.annotation.Autowired;
-import com.bofa.appium.annotation.Component;
 import com.bofa.appium.container.ApplicationContext;
 import com.bofa.appium.container.ApplicationListener;
-import com.bofa.appium.excute.ExecutePlatForm;
-import com.bofa.appium.excute.step.Execute;
+import com.bofa.appium.execute.ExecutePlatForm;
 
 /**
  * @author Bofa
@@ -16,7 +13,6 @@ import com.bofa.appium.excute.step.Execute;
  */
 @Application("com.bofa.appium.excute")
 public class EntryApplication {
-
 
     public static void main(String[] args) {
         ApplicationListener.initContainer();

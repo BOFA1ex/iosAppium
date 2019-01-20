@@ -1,9 +1,8 @@
-package com.bofa.appium.excute;
+package com.bofa.appium.execute;
 
-import com.bofa.appium.excute.dto.Event;
+import com.bofa.appium.execute.dto.Event;
 import com.google.common.collect.Lists;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +30,7 @@ public class ExecuteReq {
 
 
     public static ExecuteReq newInstance(String[] args, String desc, int xoffset, int yoffset, Long processTime) {
-        return new ExecuteReq(args, null, xoffset, yoffset, processTime);
+        return new ExecuteReq(args, desc, xoffset, yoffset, processTime);
     }
 
 
@@ -49,12 +48,14 @@ public class ExecuteReq {
 
     public ExecuteReq(String[] args, String desc, int xoffset, int yoffset, Long processTime) {
         this.args = args;
+        this.desc = desc;
         events = Lists.newArrayList();
         events.add(new Event(xoffset, yoffset, processTime));
     }
 
     public ExecuteReq(String[] args, String desc, List<Event> events) {
         this.args = args;
+        this.desc = desc;
         this.events = Lists.newArrayList();
         this.events.addAll(events);
     }

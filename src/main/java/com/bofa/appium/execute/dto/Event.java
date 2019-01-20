@@ -1,4 +1,4 @@
-package com.bofa.appium.excute.dto;
+package com.bofa.appium.execute.dto;
 
 import lombok.Data;
 

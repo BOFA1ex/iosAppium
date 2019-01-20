@@ -1,17 +1,15 @@
-package com.bofa.appium.excute.step;
+package com.bofa.appium.execute.step;
 
 import com.bofa.appium.annotation.Autowired;
 import com.bofa.appium.annotation.Component;
-import com.bofa.appium.excute.ExecuteReq;
-import com.bofa.appium.excute.dto.Event;
-import com.bofa.appium.excute.dto.ExecuteConst;
+import com.bofa.appium.execute.ExecuteReq;
+import com.bofa.appium.execute.dto.Event;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSTouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,7 +22,7 @@ import java.util.List;
  * @date 2018/12/13
  */
 @Component
-public class WaitAndTapEc implements Execute {
+public class WaitAndTapEc implements com.bofa.appium.execute.step.Execute {
 
     @Autowired(value = false)
     private IOSDriver<MobileElement> driver;
@@ -65,6 +63,7 @@ public class WaitAndTapEc implements Execute {
         if (req == null) {
             throw new RuntimeException("req 不能为空!");
         }
+
         waitAndTap(req.getEvents());
     }
 

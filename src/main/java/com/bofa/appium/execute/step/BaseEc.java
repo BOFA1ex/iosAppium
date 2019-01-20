@@ -1,22 +1,15 @@
-package com.bofa.appium.excute.step;
+package com.bofa.appium.execute.step;
 
 import com.bofa.appium.annotation.Component;
 import com.bofa.appium.container.ApplicationContext;
 import com.bofa.appium.container.ApplicationListener;
-import com.bofa.appium.excute.ExecuteReq;
 import com.bofa.appium.util.PropertiesUtils;
-import com.bofa.appium.util.Shell;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.AutomationName;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.Properties;
 
 /**
  * @author Bofa
@@ -29,13 +22,13 @@ public class BaseEc implements Execute {
 
     private String url;
 
-    private ExecuteReq req;
+    private com.bofa.appium.execute.ExecuteReq req;
 
-    public ExecuteReq getReq() {
+    public com.bofa.appium.execute.ExecuteReq getReq() {
         return req;
     }
 
-    public void setReq(ExecuteReq req) {
+    public void setReq(com.bofa.appium.execute.ExecuteReq req) {
         this.req = req;
     }
 
